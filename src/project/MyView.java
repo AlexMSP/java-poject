@@ -99,8 +99,16 @@ class MyView extends JFrame implements IView {
         JMenuItem jChooseDepth = new JMenuItem("Choose recursive depth...");
         jChooseDepth.addActionListener(e -> {
             String depth = JOptionPane.showInputDialog(null, "What should be the depth of the search?");
-            int maxRecursionDepth = Integer.parseInt(depth);
-            getPresenter().getModel().setMaxRecursionDepth(maxRecursionDepth);
+
+            try {
+                int maxRecursionDepth = Integer.parseInt(depth);
+                getPresenter().getModel().setMaxRecursionDepth(maxRecursionDepth);
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(null, "Please insert a number next time, default value is 3!",
+                        "Invalid Entry",
+                        JOptionPane.INFORMATION_MESSAGE);
+            }
+
         });
         jSettings.add(jChooseSaveLocation);
         jSettings.add(jChooseDepth);
